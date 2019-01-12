@@ -146,6 +146,19 @@ const actors = [{
   }]
 }];
 
+function priceEvent(bars,events){
+	var i,j;
+	for(i=0;i<events.length;i++){
+		var barId=events[i].barId;
+		var pricePerHour=0,pricePerPerson=0
+		for(j=0;j<bars.length;j++){
+			if(bars[j].id==barId)pricePerHour=bars[j].pricePerHour,pricePerPerson=bars[j].pricePerPerson;
+		}
+		events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson;
+	}
+}
+
+priceEvent(bars,events);
 console.log(bars);
 console.log(events);
 console.log(actors);
