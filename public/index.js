@@ -154,14 +154,25 @@ function priceEvent(bars,events){
 		for(j=0;j<bars.length;j++){
 			if(bars[j].id==barId)pricePerHour=bars[j].pricePerHour,pricePerPerson=bars[j].pricePerPerson;
 		}
-		if(events[i].persons>=60) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.5;
-		else if(events[i].persons>=20) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.7;
-		else if(events[i].persons>=10) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.9;
+		if(events[i].persons>60) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.5;
+		else if(events[i].persons>20) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.7;
+		else if(events[i].persons>10) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.9;
 		else events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson;
 	}
 }
 
+function SetCommission(events){
+	for(var i=0;i<events.length;i++){
+		var price=events[i].price;
+		var commission=price*0.3;
+		events[i].commission.insurance=commission*0.5;
+		events[i].commission.treasury=events[i].persons;
+		events[i].commission.privateaser=commission-(events[i].commission.insurance+events[i].commission.treasury);
+	}
+}
+
 priceEvent(bars,events);
+SetCommission(events);
 console.log(bars);
 console.log(events);
 console.log(actors);
