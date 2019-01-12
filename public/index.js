@@ -154,7 +154,10 @@ function priceEvent(bars,events){
 		for(j=0;j<bars.length;j++){
 			if(bars[j].id==barId)pricePerHour=bars[j].pricePerHour,pricePerPerson=bars[j].pricePerPerson;
 		}
-		events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson;
+		if(events[i].persons>=60) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.5;
+		else if(events[i].persons>=20) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.7;
+		else if(events[i].persons>=10) events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson*0.9;
+		else events[i].price=events[i].time*pricePerHour+events[i].persons*pricePerPerson;
 	}
 }
 
